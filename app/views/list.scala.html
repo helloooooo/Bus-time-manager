@@ -1,0 +1,40 @@
+@(list:Seq[User])(implicit  messages: Messages)
+
+@import helper._
+@header()
+<head>
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
+</head>
+
+@main("ユーザー一覧") {
+
+<div class="col-lg-2">
+</div>
+<div class="col-lg-8">
+    <h2>ユーザー一覧</h2>
+
+    <table class="table table-hover">
+        <tr>
+            <th><div class = "col-lg-4">ID</div></th>
+            <th><div class = "col-lg-4">Name</div></th>
+            <th><div class = "col-lg-4">status</div></th>
+        </tr>
+
+        @list.map { list =>
+        <tr>
+            <td>@list.id</td>
+            <td><a href=" @routes.UserController.innerlist(list.id)">@list.name</a></td>
+            @list.status match {
+            case "normal" => {<td><div class="list-group-item list-group-item-success">}
+            case "warning" => {<td><div class="list-group-item list-group-item-warning">}
+            case "danger" => {<td><div class="list-group-item list-group-item-danger">}
+            case _ => {<td><div class="list-group-item list-group-item-success">}
+            }
+            @list.status</div></td>
+        </tr>
+        }
+    </table>
+</div>
+<div class="col-lg-2">
+</div>
+}
